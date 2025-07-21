@@ -23,4 +23,23 @@ model Post {
   createdAt DateTime @default(now())
   published Boolean  @default(false) 
 }
+model Author {
+  id    Int     @id @default(autoincrement())
+  name  String
+  books Book[]
+}
+
+model Book {
+  id        Int     @id @default(autoincrement())
+  title     String
+  author    Author  @relation(fields: [authorId], references: [id])
+  authorId  Int
+  tags      Tag[]   @relation("BookTags")
+}
+
+model Tag {
+  id    Int     @id @default(autoincrement())
+  name  String
+  books Book[]  @relation("BookTags")
+}
 
